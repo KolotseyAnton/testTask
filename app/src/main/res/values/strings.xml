@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">TestTaskMovie</string>
+    <string name="app_name">TestMovieDB</string>
+    <string name="search">Search</string>
+    <string name="rating">Rating</string>
+    <string name="enableFavorites">enable Fav</string>
+    <string name="disableFavorites">disable Fav</string>
+    <string name="overview">Overview</string>
 </resources>
