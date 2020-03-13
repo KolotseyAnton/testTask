@@ -11,13 +11,12 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitNetworkManager(private  val apiKey:String="b66ffea8276ce576d60df52600822c88") : NetworkManager{
-
-    private val api=Retrofit.Builder()
-        .baseUrl(getBaseUrl())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(MovieDBAPI::class.java)
+class RetrofitNetworkManager(private  val apiKey:String= "b66ffea8276ce576d60df52600822c88",
+                             private val api: MovieDBAPI= Retrofit.Builder()
+                                 .baseUrl(BASE_URL_API)
+                                 .addConverterFactory(GsonConverterFactory.create())
+                                 .build()
+                                 .create(MovieDBAPI::class.java)) : NetworkManager{
 
     @ExperimentalCoroutinesApi
     override fun getPopularMovies(page: Int) :Flow<PopularMovieResponse> {
