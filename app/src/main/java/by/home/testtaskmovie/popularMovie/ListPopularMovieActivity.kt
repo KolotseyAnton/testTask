@@ -50,6 +50,7 @@ class ListPopularMovieActivity : AppCompatActivity(),ListPopularMovieView,TextWa
                 }
             })
         }
+        //FIXME: implement inject layer
         presenter=PopularMoviePresenter(this,ListPopularMovieInteractor(RetrofitNetworkManager(),RoomDataBaseManager(applicationContext)))
         presenter.onCreate()
     }

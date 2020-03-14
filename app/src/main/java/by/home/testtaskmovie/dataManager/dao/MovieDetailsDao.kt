@@ -45,6 +45,8 @@ interface ProductCountryDao{
     fun getMovie(country_id:Long):List<ProductCountry>
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(productCountry: ProductCountry)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(productCountry: List<ProductCountry>)
     @Query("DELETE from product_country WHERE product_country_id ==:id")
     fun delete(id:Long)
 }
@@ -56,8 +58,12 @@ interface ProductCompanyDao{
     fun getAllCountries():List<ProductCompany>
     @Query("SELECT * from product_company WHERE product_company_id = :company_id")
     fun getMovie(company_id:Long):List<ProductCompany>
+
     @Insert
     fun insert(productCompany: ProductCompany)
+
+    @Insert
+    fun insert(productCompany: List<ProductCompany>)
     @Delete
     fun delete(productCompany:ProductCompany)
 
@@ -73,6 +79,9 @@ interface SpokenLanguageDao{
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(spokenLanguage: SpokenLanguage)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(spokenLanguage: List<SpokenLanguage>)
 
     @Delete
     fun delete(spokenLanguage:SpokenLanguage)

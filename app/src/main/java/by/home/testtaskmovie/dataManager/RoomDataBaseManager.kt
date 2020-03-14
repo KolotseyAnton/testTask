@@ -26,17 +26,11 @@ class RoomDataBaseManager(context: Context, private val roomDB: RoomDB= RoomDB.g
 
         return flow {
 
-            roomDB.movieDao().insert(m.movie)
             m.apply {
-                listProductCompany.forEach {
-                    roomDB.productCompanyDao().insert(it)
-                }
-                listProductCountry.forEach {
-                    roomDB.productCountryDao().insert(it)
-                }
-                listSpokenLanguage.forEach {
-                    roomDB.spokenLanguageDao().insert(it)
-                }
+                roomDB.movieDao().insert(m.movie)
+                roomDB.productCompanyDao().insert(listProductCompany)
+                roomDB.productCountryDao().insert(listProductCountry)
+                roomDB.spokenLanguageDao().insert(listSpokenLanguage)
             }
             emit( true) }.flowOn(Dispatchers.IO)
     }

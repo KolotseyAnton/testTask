@@ -31,6 +31,7 @@ class PopularMovieDetailsActivity : AppCompatActivity(), MovieDetailView{
             presenter.setFavorite(binding.favoriteBtn.isChecked)
         }
 
+        //FIXME: implement inject layer
         presenter= MovieDetailPresenter(this,intent.getLongExtra(KEY_ID,-1), MovieDetailsInteractor(RetrofitNetworkManager(),RoomDataBaseManager(applicationContext)))
         presenter.onCreate()
     }

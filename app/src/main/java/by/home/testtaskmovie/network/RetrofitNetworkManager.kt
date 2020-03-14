@@ -19,21 +19,21 @@ class RetrofitNetworkManager(private  val apiKey:String= "b66ffea8276ce576d60df5
                                  .create(MovieDBAPI::class.java)) : NetworkManager{
 
     @ExperimentalCoroutinesApi
-    override fun getPopularMovies(page: Int) :Flow<PopularMovieResponse> {
+    override fun getPopularMovies(page: Int): Flow<PopularMovieResponse> {
        return flow {
            emit(api.getPopularMovies(apiKey,page))
        }.flowOn(Dispatchers.IO)
     }
 
     @ExperimentalCoroutinesApi
-    override fun getMovieDetails(movieId: Long):Flow<GetMovieResponse> {
+    override fun getMovieDetails(movieId: Long): Flow<GetMovieResponse> {
         return flow{
             emit(api.getMovie(movieId,apiKey))
         }.flowOn(Dispatchers.IO)
     }
 
     override fun search(query: String): Flow<PopularMovieResponse> {
-        return flow { emit(api.search(apiKey,query)) }
+        return flow { emit(api.search(apiKey,query)) }.flowOn(Dispatchers.IO)
     }
 
     override fun getBaseUrl(): String = BASE_URL_API
