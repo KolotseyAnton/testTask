@@ -3,6 +3,7 @@ package by.home.testtaskmovie.dataManager
 import android.content.Context
 import by.home.testtaskmovie.dataManager.entities.*
 import by.home.testtaskmovie.network.models.GetMovieResponse
+import by.home.testtaskmovie.utils.getMovieResponseToMovieDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -18,21 +19,18 @@ class RoomDataBaseManager(context: Context, private val roomDB: RoomDB= RoomDB.g
 
     @ExperimentalCoroutinesApi
     override fun saveMovieDetails(movie: GetMovieResponse):Flow<Boolean> {
-
-        val m= MovieDetails(Movie(movie.id,movie.adult,movie.backdrop_path," ",movie.budget,movie.homepage,movie.imdb_id,movie.original_language,movie.original_title,movie.overview,movie.popularity,movie.poster_path,movie.release_date,movie.revenue.toInt(),movie.runtime,movie.status,movie.tagline,movie.original_title,movie.video,movie.vote_average,movie.vote_count),
-            movie.production_companies.map { ProductCompany(0,movie.id,it.name) },
-            movie.production_countries.map { ProductCountry(0,movie.id,it.name)},
-            movie.spoken_languages.map { SpokenLanguage(0,movie.id,it.name) })
+        val m= getMovieResponseToMovieDetails(movie)
 
         return flow {
-
             m.apply {
                 roomDB.movieDao().insert(m.movie)
                 roomDB.productCompanyDao().insert(listProductCompany)
                 roomDB.productCountryDao().insert(listProductCountry)
                 roomDB.spokenLanguageDao().insert(listSpokenLanguage)
             }
-            emit( true) }.flowOn(Dispatchers.IO)
+            emit( true)
+
+        }.flowOn(Dispatchers.IO)
     }
 
     @ExperimentalCoroutinesApi
