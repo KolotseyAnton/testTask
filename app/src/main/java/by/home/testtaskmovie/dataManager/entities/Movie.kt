@@ -36,21 +36,38 @@ data class Movie(@PrimaryKey
 @Entity(tableName = "genre")
 data class Genre ( @PrimaryKey val id:Long,@ColumnInfo(name = "name") val name:String)
 
-@Entity(tableName = "product_company")
+@Entity(tableName = "product_company",
+    foreignKeys = [ForeignKey(
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("movie_id"),
+        entity = Movie::class,
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index("movie_id")])
 data class ProductCompany(@PrimaryKey(autoGenerate = true) val product_company_id:Long, @ColumnInfo(name = "movie_id") val movie_id:Long,@ColumnInfo(name = "name") val name:String)
 
-@Entity(tableName = "product_country")
-data class ProductCountry(@PrimaryKey(autoGenerate = true) val product_country_id:Long, @ColumnInfo(name = "movie_id") val movie_id:Long,  @ColumnInfo(name = "name") val name:String){
+
+@Entity(tableName = "product_country",
+    foreignKeys = [ForeignKey(
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("movie_id"),
+        entity = Movie::class,
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index("movie_id")])
+data class ProductCountry(@PrimaryKey(autoGenerate = true)  @ColumnInfo(name = "product_country_id") val product_country_id:Long, @ColumnInfo(name = "movie_id") val movie_id:Long,  @ColumnInfo(name = "name") val name:String){
 
 }
 
-@Entity(tableName = "spoken_language")
+@Entity(tableName = "spoken_language",
+    foreignKeys = [ForeignKey(
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("movie_id"),
+        entity = Movie::class,
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index("movie_id")])
 data class SpokenLanguage(@PrimaryKey(autoGenerate = true) val spoken_language_id:Long, @ColumnInfo(name = "movie_id") val movie_id:Long,  @ColumnInfo(name = "name") val name:String)
-//@Entity(primaryKeys = ["movieId", "productCompanyId"])
-//data class MovieProductCompany(
-//    val movieId: Long,
-//    val productCompanyId: Long
-//)
 
 class MovieDetails(
     @Embedded var movie: Movie,
